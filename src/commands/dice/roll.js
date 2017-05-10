@@ -56,11 +56,11 @@ export default class RollDiceCommand extends Command {
 
 				// Target for total roll
 				if(matches[2] === '>' || matches[2] === '<') {
-					const success = matches[2] === '>' ? rollResult.roll > target : rollResult.roll < target;
+					const success = matches[2] === '>' ? rollResult.roll >= target : rollResult.roll < target;
 					const diceList = this.buildDiceList(rollResult, totalDice);
 					response = oneLine`
 						${message.author} has **${success ? 'succeeded' : 'failed'}**.
-						(Rolled ${rollResult.roll}, ${!success ? 'not' : ''} ${matches[2] === '>' ? 'greater' : 'less'} than ${target}${diceList ? `;   ${diceList}` : ''})
+						(Rolled ${rollResult.roll}, ${!success ? 'not' : ''} ${matches[2] === '>' ? 'at least' : 'less than'} ${target}${diceList ? `;   ${diceList}` : ''})
 					`;
 
 				// Target for individual dice (success counting)
